@@ -45,7 +45,7 @@ func NewUserService(proxyURLs []string) users.UserService {
 			url = "http://" + url
 		}
 		var e endpoint.Endpoint
-		e = NewEndpoints(url).ProductByName
+		e = NewEndpoints(url).UserByName
 		e = circuitbreaker.Gobreaker(gobreaker.NewCircuitBreaker(gobreaker.Settings{}))(e)
 		e = ratelimit.NewErroringLimiter(rate.NewLimiter(rate.Every(time.Second), qps))(e)
 		subscriber = append(subscriber, e)
